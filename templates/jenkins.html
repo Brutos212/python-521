@@ -14,25 +14,35 @@
     </tr>
   </thead>
   <tbody>
+    {% for j in context.jobs %}
     <tr>
-      <td>== Nome do Job ==</td>
-      <td>== Status do Job ==</td>
-      <td>== Status do Último Build ==</td>
+      <td>{{ j.fullName }}</td>
+      <td>{{ 'ok' if j.color == 'blue' else 'error' }}</td>
+      <td>
+        {% if not j.firstBuild %}
+          Nunca buildou
+        {% elif j.lastSuccessfulBuild.number == j.nextBuildNumber-1 %}
+          Sucesso
+        {% else %}
+          Falhou
+        {% endif %}
+      </td>
       <td>
         <div class="row">
           <div class="col-4">
-            <a href="/jenkins/build/== Nome do Job==" title="Iniciar Build">
+            <a href="/jenkins/build/{{ j.fullName }}" title="Iniciar Build">
               <i class="fas fa-redo-alt"></i>
             </a>
           </div>
           <div class="col-4">
-            <a href="/jenkins/update/== Nome do Job==" title="Atualizar Build">
+            <a href="/jenkins/update/{{ j.fullName }}" title="Atualizar Build">
               <i class="fas fa-pencil-alt"></i>
             </a>
           </div>
         </div>
       </td>
     </tr>
+    {% endfor %}
   </tbody>
 </table>
 {% endblock %}
