@@ -4,6 +4,10 @@ body {
   height: 100%;
 }
 
+i {
+  color: magenta;
+}
+
 .hidden {
   display: none;
 }
