@@ -28,19 +28,25 @@
   <table class="table table-hover table-striped">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Email</th>
-        <th scope="col">Usuário</th>
-        <th scope="col">Status</th>
-        <th scope="col">Admin</th>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Dono</th>
+        <th scope="col">Commits</th>
       </tr>
     </thead>
     <tbody>
+      {% for p in context.projects %}
       <tr>
-        <td>== Email do Usuário ==</td>
-        <td>== Nome do Usuário ==</td>
-        <td>== Status do Usuário ==</td>
-        <td>== Usuário é Admin ==</td>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.owner.name }}</td>
+        <td>
+          <a href="">
+            <i class="fas fa-book-open"></i>
+          </a>
+        </td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 </section>
