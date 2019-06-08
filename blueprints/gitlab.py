@@ -21,14 +21,22 @@ def get_gitlab():
 
     return flask.render_template('gitlab.html', context=context)
 
-@blueprint.route('/gitlab/<int:projectid>/commits')
+@blueprint.route('/gitlab/<int:projectid>/commits', methods=[ 'GET' ])
 def get_commits(projectid):
-    pass
 
+    ROUTE = '/projects/{}/repository/commits?private_token=2ByFhTjRpzFVesALM_og'.format(projectid)    
+    COMMITS_URL = DOMAIN + ROUTE
 
+    context = {
+        'page': 'gitlab',
+        'current_tab': flask.request.args.get('current_tab') or 'projects',
+        'route': {
+            'is_public': False
+        },
+        'commits': requests.get(COMMITS_URL).json() 
+    }
 
-
-
+    return flask.render_template('gitlab.html', context=context)
 
 
 
